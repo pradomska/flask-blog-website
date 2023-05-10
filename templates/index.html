@@ -1,33 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Permanent+Marker&family=Roboto+Mono&family=Ubuntu&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="icon" href="static/favicon.ico">
-</head>
-<body>
-<div class="wrapper">
-    <div class="top">
-        <div class="title"><h1>My Blog</h1></div>
-    </div>
+{% include "header.html" %}
 
-    {% for post in all_posts %}
-    <div class="content">
-        <div class="card">
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.subtitle }}</p>
-            <a href="{{ url_for('show_post', index=post.id) }}">More</a>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/bg.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Paula's Blog</h1>
+            <span class="subheading">A collection of random musings.</span>
+          </div>
         </div>
+      </div>
     </div>
-    {% endfor %}
+  </header>
 
-</div>
-</body>
-<footer>
-    <p>Copyright {{ year }}.</p>
-</footer>
-</html>
+  <!-- Main Content -->
+  <div class="container">
+
+
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for post in all_posts %}
+        <div class="post-preview">
+          <a href="{{ url_for('show_post', index=post.id) }}">
+            <h2 class="post-title">
+              {{post.title}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{post.subtitle}}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="#">{{post.author}}</a>
+            on {{post.date}}</p>
+        </div>
+        <hr>
+        {% endfor %}
+
+
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-outline-success float-right" href="#">Older Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+{% include "footer.html" %}
